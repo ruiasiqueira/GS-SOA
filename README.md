@@ -1,6 +1,6 @@
 # 🚨 SurvivAPP API
 
-A **SurvivAPP API** é uma aplicação backend desenvolvida em **Java 17** com **Spring Boot 3.2.2**, com autenticação baseada em **JWT (JSON Web Token)** e endpoints para envio de **sinais de emergência**.
+A **SurvivAPP API** é uma aplicação backend desenvolvida em **Java 17** com **Spring Boot 3.2.2**, endpoints para envio de **sinais de emergência**.
 
 Usuários se autenticam via **email e senha** (quando conectados à internet), podendo enviar **alertas emergenciais** vinculados ao seu perfil.
 
@@ -67,8 +67,8 @@ src/
 ### ▶️ Passos
 
 ```bash
-git clone https://github.com/seu-usuario/survival-sos-backend.git
-cd survival-sos-backend
+git clone [https://github.com/ruiasiqueira/GS-SOA]
+cd GS-SOA
 mvn spring-boot:run
 ````
 
