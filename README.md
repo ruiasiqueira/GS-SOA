@@ -86,17 +86,22 @@ A API estará acessível em:
 
 ## 🔐 Endpoints Principais
 
+
+---
+
 ### 🆕 Criar Conta
 
-`POST /usuarios/criar`
+`POST /usuarios`
+
+Content-Type: application/json
 
 ```json
 {
-  "nomeUsuario": "Maria da Silva",
-  "email": "maria@email.com",
-  "senha": "segura123",
-  "cpf": "12345678900",
-  "dt_nascimento": "1990-01-01"
+    "nome": "João da Silva",
+    "email": "joao@email.com",
+    "senha": "senha123",
+    "tipoSanguineo": "O+",
+    "alergia": "Nenhuma"
 }
 ```
 
@@ -105,6 +110,8 @@ A API estará acessível em:
 ### 🔑 Login
 
 `POST /usuarios/login`
+
+Content-Type: application/json
 
 ```json
 {
@@ -115,39 +122,174 @@ A API estará acessível em:
 
 **Resposta:**
 
+* `"Login bem-sucedido!"` em caso de sucesso
+* `"Email ou senha incorretos."` em caso de falha
+
+---
+
+### 👥 Listar todos os usuários
+
+`GET /usuarios`
+
+**Resposta:** Lista de usuários no formato JSON, exemplo:
+
+```json
+[
+  {
+    "nome": "João da Silva",
+    "email": "joao@email.com",
+    "tipoSanguineo": "O+",
+    "alergia": "Nenhuma"
+  },
+  {
+    "nome": "Maria Oliveira",
+    "email": "maria@email.com",
+    "tipoSanguineo": "A-",
+    "alergia": "Penicilina"
+  }
+]
+```
+
+---
+
+### 👤 Buscar usuário por ID
+
+`GET /usuarios/{id}`
+
+**Parâmetros:**
+
+* `id` (path) — ID numérico do usuário a ser buscado.
+
+**Resposta:** Usuário no formato JSON, exemplo:
+
 ```json
 {
-  "token": "jwt...",
-  "userId": 1
+  "nome": "João da Silva",
+  "email": "joao@email.com",
+  "tipoSanguineo": "O+",
+  "alergia": "Nenhuma"
+}
+```
+
+
+---
+
+### 🆕 Criar Emergência
+
+`POST /emergencias`
+
+Content-Type: application/json
+
+```json
+{
+  "tipoEmergencia": "Incêndio",
+  "usuarioId": 1
+}
+```
+
+**Resposta:**
+Objeto EmergenciaDTO criado, exemplo:
+
+```json
+{
+  "id": 10,
+  "tipoEmergencia": "Incêndio",
+  "usuarioId": 1
 }
 ```
 
 ---
 
-### 🚨 Enviar Emergência
+### 📋 Listar todas as emergências
 
-`POST /emergencias` (requer autenticação)
+`GET /emergencias`
+
+**Resposta:** Lista de objetos Emergencia, exemplo:
 
 ```json
-{
-  "tipoEmergencia": "Perdido na floresta"
-}
+[
+  {
+    "id": 10,
+    "tipoEmergencia": "Incêndio",
+    "usuario": {
+      "id": 1,
+      "nome": "João da Silva",
+      "email": "joao@email.com",
+      "tipoSanguineo": "O+",
+      "alergia": "Nenhuma"
+    }
+  },
+  {
+    "id": 11,
+    "tipoEmergencia": "Acidente",
+    "usuario": {
+      "id": 2,
+      "nome": "Maria Oliveira",
+      "email": "maria@email.com",
+      "tipoSanguineo": "A-",
+      "alergia": "Penicilina"
+    }
+  }
+]
 ```
 
-**Resposta:**
+---
+
+### 👤 Buscar emergência por ID
+
+`GET /emergencias/{id}`
+
+**Parâmetros:**
+
+* `id` (path) — ID da emergência a ser buscada.
+
+**Resposta:** Objeto Emergencia, exemplo:
 
 ```json
 {
-  "id": 1,
-  "tipoEmergencia": "Perdido na floresta",
+  "id": 10,
+  "tipoEmergencia": "Incêndio",
   "usuario": {
     "id": 1,
-    "nomeUsuario": "Maria da Silva"
+    "nome": "João da Silva",
+    "email": "joao@email.com",
+    "tipoSanguineo": "O+",
+    "alergia": "Nenhuma"
   }
 }
 ```
 
 ---
+
+### ✏️ Atualizar emergência
+
+`PUT /emergencias/{id}`
+
+Content-Type: application/json
+
+```json
+{
+  "tipoEmergencia": "Enchente",
+  "usuarioId": 1
+}
+```
+
+**Resposta:** Objeto Emergencia atualizado (retornado opcionalmente).
+
+---
+
+### 🗑 Deletar emergência
+
+`DELETE /emergencias/{id}`
+
+**Parâmetros:**
+
+* `id` (path) — ID da emergência a ser deletada.
+
+**Resposta:** Nenhuma (204 No Content esperado).
+
+---
+
 
 ## 🛠️ Tecnologias Utilizadas
 
